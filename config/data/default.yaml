@@ -1,0 +1,101 @@
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Video                                                      * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+video:
+  fps               : 30.0
+  image_size        : 256
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Audio                                                      * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+audio:
+  sample_rate       : 16000
+  sliding_window:
+    mel             : 64
+    deepspeech      : 32  # if 25.6, has same time duration with 64 mel
+    deepspeech_60fps: 16
+    for_upper       : 256  # mel for_upper
+  mel:
+    win_size        : 0.064
+    hop_size        : 0.008
+    n_mels          : 128
+    fmin            : 50
+    fmax            : 3600
+    padding         : true
+    win_fn          : hamm
+    top_db          : 80
+    ref_db          : 20
+    normalize       : true
+    clip_normalized : true
+    subtract_mean   : false
+    preemphasis     : 0.65
+  deepspeech:
+    graph_pb        : ${path.assets_dir}/pretrain_models/deepspeech-0.1.0-models/output_graph.pb
+    feat_size       : 29
+    fps             : 50.0
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                     Speakers                                                     * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+VOCASET:
+  REAL3D_SPEAKERS:
+    - FaceTalk_170725_00137_TA  # 1
+    - FaceTalk_170728_03272_TA  # 2
+    - FaceTalk_170731_00024_TA
+    - FaceTalk_170809_00138_TA  # 4
+    - FaceTalk_170811_03274_TA  # 5
+    - FaceTalk_170904_00128_TA  # 6
+    - FaceTalk_170912_03278_TA
+    - FaceTalk_170915_00223_TA
+  VIDEO_SPEAKERS:
+    - FaceTalk_170811_03275_TA
+    - FaceTalk_170904_03276_TA
+    - FaceTalk_170908_03277_TA
+    - FaceTalk_170913_03279_TA
+  VIDEO_SOURCES: ${.VIDEO_SPEAKERS}
+
+CELEBTALK:
+  VIDEO_SPEAKERS:
+    - m000_obama
+    - m001_trump
+    - m002_taruvinga
+    - m003_iphoneXm0
+    - f000_watson
+    - f001_clinton
+    - f002_holsman
+    - fx00_test
+  SPEAKER_SOURCES:
+    m000_obama: ["m000_obama/011616_WeeklyAddress.mp4"]
+    m001_trump: ["m001_trump/WeeklyAddress20170203.mp4"]
+    m002_taruvinga: ["m002_taruvinga/free_website_audit.mp4"]
+    m003_iphoneXm0: ["m003_iphoneXm0/neutral"]
+    f000_watson: ["f000_watson/Beauty and the Beast - Emma Watson Interview #1.mp4"]
+    f001_clinton: ["f001_clinton/Hillary Clinton full speech at the 2020 Democratic National Convention.mp4"]
+    f002_holsman: ["f002_holsman/how_to_give_your_best_presentation.mp4"]
+    fx00_test: ["fx00_test/neural_style_preserving_visual_dubbing.mp4"]
+  VIDEO_SOURCES:
+    - "m000_obama/011616_WeeklyAddress.mp4"
+    - "m001_trump/WeeklyAddress20170203.mp4"
+    - "m002_taruvinga/free_website_audit.mp4"
+    - "m003_iphoneXm0/neutral"
+    - "f000_watson/Beauty and the Beast - Emma Watson Interview #1.mp4"
+    - "f001_clinton/Hillary Clinton full speech at the 2020 Democratic National Convention.mp4"
+    - "f002_holsman/how_to_give_your_best_presentation.mp4"
+    - "fx00_test/neural_style_preserving_visual_dubbing.mp4"
+  DATA_FPS:
+    m000_obama: 30
+    m001_trump: 30
+    m002_taruvinga: 30
+    m003_iphoneXm0: 30
+    f000_watson: 30
+    f001_clinton: 30
+    f002_holsman: 25
+    fx00_test: 30
+
+FACETALK:
+  VIDEO_SPEAKERS:
+    ${data.VOCASET.VIDEO_SPEAKERS}
+  VIDEO_SOURCES: ${.VIDEO_SPEAKERS}

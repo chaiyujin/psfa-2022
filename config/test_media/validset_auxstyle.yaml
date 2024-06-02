@@ -1,0 +1,39 @@
+do: ['misc']
+
+default_extra:
+  fps: 30
+  avoffset: 0
+  swap: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes"
+  idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+
+misc:
+  - ["${model.visualizer.speaker}", "vld-000", "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-000"]
+  - ["${model.visualizer.speaker}", "vld-001", "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-001"]
+
+  # - ["${model.visualizer.speaker}", "vld-000@00137_TA",
+  #    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-000",
+  #    {fps: 60, avoffset: 6, swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170725_00137_TA/sentence01/offsets.npy"}]
+  # - ["${model.visualizer.speaker}", "vld-001@00137_TA",
+  #    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-001",
+  #    {fps: 60, avoffset: 6, swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170725_00137_TA/sentence01/offsets.npy"}]
+
+  - ["${model.visualizer.speaker}", "vld-000@03272_TA",
+     "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-000",
+     {fps: 60, avoffset: 6, swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170728_03272_TA/sentence01/offsets.npy"}]
+  - ["${model.visualizer.speaker}", "vld-001@03272_TA",
+     "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-001",
+     {fps: 60, avoffset: 6, swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170728_03272_TA/sentence01/offsets.npy"}]
+
+  # - ["${model.visualizer.speaker}", "vld-000@03277_TA",
+  #    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-000",
+  #    {fps: 60, avoffset: 6, swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170908_03277_TA/sentence01/offsets.npy"}]
+  # - ["${model.visualizer.speaker}", "vld-001@03277_TA",
+  #    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-001",
+  #    {fps: 60, avoffset: 6, swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170908_03277_TA/sentence01/offsets.npy"}]
+
+  # - ["${model.visualizer.speaker}", "vld-000@00138_TA",
+  #    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-000",
+  #    {fps: 60, avoffset: 6, swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170809_00138_TA/sentence01/offsets.npy"}]
+  # - ["${model.visualizer.speaker}", "vld-001@00138_TA",
+  #    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/vld-001",
+  #    {fps: 60, avoffset: 6, swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170809_00138_TA/sentence01/offsets.npy"}]

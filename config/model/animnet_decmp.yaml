@@ -1,0 +1,239 @@
+# _target_: src.projects.speech_animation.pl_decomp.PL_AnimNetDecmp
+# _init_: src.projects.speech_animation.pl_decomp.pre_compute_paddings
+
+debug: ${debug}
+video: ${data.video}
+audio: ${data.audio}
+wanna_fps: 30
+
+# * tag of model
+_tag_optional: ${cond:${.data_info.correct_avoffset},'',avoff-}
+
+_tag_audio: ds${data.audio.sliding_window.deepspeech}_${.animnet.encoder.audio.using}
+
+_tag_seq_lstm: lstm
+_tag_seq_xfmr: xfmr_d${.animnet.sequential.xfmr.d_model}ff${.animnet.sequential.xfmr.dim_feedforward}e${.animnet.sequential.xfmr.encoder_num_layers}d${.animnet.sequential.xfmr.decoder_num_layers}
+_tag_seq_conv: conv_${cond:${.animnet.sequential.conv.causal},causal,conv}
+_tag_seq: ${case:${.animnet.sequential.using},conv,${._tag_seq_conv},xfmr,${._tag_seq_xfmr},lstm,${._tag_seq_lstm}}
+
+_tag_dec_morph: flame${.animnet.decoder.verts.morphable.flame.n_exp}
+_tag_dec_bs: blend${.animnet.decoder.verts.blendshape.n_components}_${cond:${.animnet.decoder.verts.blendshape.trainable},trainable,fixed}
+_tag_dec: ${case:${.animnet.decoder.verts.using},morphable,${._tag_dec_morph},blendshape,${._tag_dec_bs}}
+
+tag: ${._tag_optional}${._tag_audio}-${._tag_seq}-${._tag_dec}
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                    Visualizer                                                    * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+visualizer:
+  painter:
+    - demo_audio_style
+    # - demo_duplex
+    # - demo_duplex_audio
+    # - demo_duplex_comp
+    - demo_duplex_comp_audio
+    # - demo_swap_cycle
+    # - demo_recons
+    # - demo_recons_lower
+    # - demo_recons_audio
+    # - demo_recons_coma
+  # tb plot settings
+  draw_gap_steps: 200
+  draw_grid_size: 256
+  # video settings
+  video_gap_epochs: 20
+  video_grid_size:  256
+  video_1st_epoch:  false
+  # generate or not
+  generate_train: false
+  generate_valid: false
+  generate_test:  false
+  # dump or not
+  dump_metrics: true
+  dump_audio:   false
+  dump_offsets: false
+  dump_images:  false
+  dump_coeffs:  false
+  # overwrite or not
+  overwrite_videos: false
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                  Neural Renderer                                                 * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+freeze_renderer: true
+neural_renderer:
+  load_from:
+    path: "dont_build"
+    possible_names: ["neural_renderer"]
+    state_dict_remove_prefix: ["renderer."]
+    freeze_loaded: ${...freeze_renderer}
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                      AnimNet                                                     * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+data_info:
+  src_seq_frames: ${..animnet.src_seq_frames}
+  tgt_seq_frames: ${..animnet.tgt_seq_frames}
+  src_seq_pads:   ${..animnet.src_seq_pads}
+  pad_tgt: true
+  correct_avoffset: true
+
+freeze_audio_encoder: false
+freeze_decoder: false
+freeze_animnet: false
+animnet:
+  # output deformation
+  deform_from: "idle"
+  # sequence length
+  src_seq_frames: 20
+  tgt_seq_frames: ${.src_seq_frames}
+  src_seq_pads: [0, 0]  # should be automaticly computed in pre_compute_paddings
+  # audio
+  company_audio: "win"  # win | one
+  using_audio_feature: "deepspeech"
+
+  # * ---------------------------------------------- per-frame encoder --------------------------------------------- * #
+
+  encoder:
+    using: ["audio"]
+    audio:
+      using: "xfmr"
+      feature: "deepspeech"
+      conv: { out_channels: 64, layer_norm: false, dropout: 0.0 }
+      attn: { name: "bah", query_radius: 2, n_layers: 3, memory_size: 128, num_units: 64, smooth: false}
+      xfmr: { d_model: 64, n_head: 4, n_enc_layers: 3, n_dec_layers: 1, dropout: 0.1, layer_norm: true }
+
+    audio_upper:
+      using: "conv_upper"
+      mesh_conv: ${..mesh_conv}
+      conv_upper: { out_channels: 8, layer_norm: false, dropout: 0.1 }
+
+    content_upper:
+      using: conv
+      part: eyebrows
+      m2i: ${..m2i}
+      mesh_conv: ${..mesh_conv}
+      out_channels: 8
+
+    content:
+      using: conv
+      part: face_lower
+      m2i: ${..m2i}
+      mesh_conv: ${..mesh_conv}
+      out_channels: 64
+
+    style:
+      using: conv
+      part: face_neye
+      m2i: ${..m2i}
+      mesh_conv: ${..mesh_conv}
+      out_channels: 32
+
+    style_channels: 32
+
+    m2i:
+      mode: nearest
+      image_size: 64
+      nfc: 32
+
+    mesh_conv:
+      in_channels: 3
+      hidden_channels: [16, 32, 32]
+      latent_channels: 64
+      activation: "leaky_relu?negative_slope=0.2"
+      latent_activation: "identity"
+      output_activation: "identity"
+      norm_method: "none"
+      # which kind of encoder/decoder
+      conv_type: 'SpiralConv'
+      ds_factors: [4, 4, 4]  # sampling
+      spiral_seq_lengths: 12  # (optional) SpiralConv specific
+      spiral_dilations: 1
+      K: 6  # (optional) ChebConv specific
+
+  # * ---------------------------------------------- sequential module --------------------------------------------- * #
+
+  sequential:
+    using: "conv"
+    conv:
+      causal: true
+      hidden_channels: [64, 128, 256]
+      kernel_size: [5, 3, 3]
+      dilation: 1
+      norm_method: none
+      dropout: 0.1
+
+    lstm:
+      num_layers: 2
+      hidden_channels: 256
+      dropout: 0.1
+
+    xfmr:
+      win_size: 9  # same reception field as conv causal
+      d_model: 64
+      nhead: 4
+      dim_feedforward: 256
+      activation: 'relu'
+      encoder_num_layers: 3
+      decoder_num_layers: 1
+      dropout: 0.1
+
+  # * ---------------------------------------------- per-frame decoder --------------------------------------------- * #
+
+  decoder:
+    verts:
+      using: blendshape
+
+      morphable:
+        using: flame
+        flame:
+          n_shape: 100
+          n_exp: 50
+
+      blendshape:
+        trainable: true
+        using_basis: 'flame'
+        n_components: 50
+        flame_model_path: ${..morphable.flame.model_path}
+        # mlp projection
+        shared_mlp: { out_channels: [256, 256] }
+        specific_mlp: { hidden_channels: [128] }
+        norm_method: "none"
+        activation: 'lrelu0.2'
+
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                Optimizer settings                                                * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+optim_animnet:
+  name: "Adam"
+  lr: 1e-4
+  weight_decay: 1e-8
+  lr_scheduler: { name: LambdaLR, interval: epoch, gamma: 0.90, start_iter: 30, min_times: 0.1 }
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Loss                                                       * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+loss:
+  mesh:
+    part: face_noeyeballs
+    scale_pos: 1.0
+    scale_motion: 5.0
+    scale_inv_part: 0.1
+    scale_remained: 0.1
+    scale_lip_diff: 1.0
+  rec: 1
+  swp: 3
+  cyc: 1
+  swp_only_low: true
+  reg_z_ctt_close: 5.0
+  reg_z_upp_close: 5.0
+  reg_z_sty_close: 1.0
+  reg_z_aud_close: 5.0
+  audio: 2.0
+  anime: 1.0

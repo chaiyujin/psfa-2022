@@ -1,0 +1,36 @@
+_module_: src.datasets.talk_video
+
+# data settings
+audio: ${data.audio}
+video: ${data.video}
+
+# dataset settings
+data_src: "???"
+root: ${path.data_dir}/datasets/talk_video/${lower:${.data_src}}
+speakers: []
+used_seq_ids: null
+seq_ids_used_duration: { all: full }
+possible_clip_sources: ${data.${upper:${.data_src}}.VIDEO_SOURCES}
+
+# from Network
+src_seq_frames: ${model.animnet.src_seq_frames}
+tgt_seq_frames: ${model.animnet.tgt_seq_frames}
+src_seq_pads: ${model.animnet.src_seq_pads}
+company_audio: "win"
+using_audio_features: ["deepspeech"]
+wanna_fps: ${model.wanna_fps}
+
+# flags
+need_image: true
+need_audio: true
+need_verts: true
+
+# subsequence Segment
+training_hop_factor : 4.0
+
+# data Augmentation
+random_shift_alpha: 0
+random_shift_index: true
+random_aug_audio:
+  time_stretch: 2
+  feat_scaling: 0.2

@@ -1,0 +1,11 @@
+_target_: src.datamodules.talk_voca.TalkVOCADataModule
+
+batch_size: 4
+num_workers: 4
+pin_memory: true
+
+dataset_config: ${dataset}
+train_source_talk: ["train.csv"]
+valid_source_talk: ["valid.csv"]
+train_source_voca: ["vocaset_train.csv"]
+valid_source_voca: []

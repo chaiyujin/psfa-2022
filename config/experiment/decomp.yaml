@@ -1,0 +1,50 @@
+# @package _global_
+
+defaults:
+  - /flame@model.decoder.offsets.morphable.flame: base_flame
+  - /test_media@model.test_media: default
+  - override /model: decomp.yaml
+  - override /dataset: flame_mesh.yaml
+  - override /datamodule: flame_mesh.yaml
+
+path:
+  exp_dir: ${path.runs_dir}/decomp/${now:%Y%m%d_%H%M%S}-${model.tag}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+#                                                        trainer                                                       #
+# -------------------------------------------------------------------------------------------------------------------- #
+
+trainer:
+  max_epochs: 5
+  check_val_every_n_epoch : 1
+  progress_bar_refresh_rate: 10
+
+callbacks:
+  model_checkpoint:
+    monitor: "epoch-val_metric/mvd-max:lips"
+    mode: "min"
+    save_top_k: 1
+    save_every_n_epochs: 1
+
+  custom_callback:
+    _target_: src.projects.anim.callback.PL_AnimCallback
+
+# -------------------------------------------------------------------------------------------------------------------- #
+#                                                         model                                                        #
+# -------------------------------------------------------------------------------------------------------------------- #
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Data                                                       * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+dataset:
+  random_shift_alpha: true
+
+datamodule:
+  batch_size: 256
+  batch_size_coma: 32
+  sampler: SharedTextSampler
+  sampler_kwargs:
+    hop_paired: 10
+    pairs_from_same_speaker: true
+    pairs_from_diff_speaker: true

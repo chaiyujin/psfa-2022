@@ -1,0 +1,9 @@
+_target_: src.datamodules.talk_video.TalkVideoDataModule
+
+batch_size: 2
+num_workers: 4
+pin_memory: true
+train_source: ["train.csv"]
+valid_source: ["valid.csv"]
+
+dataset_config: ${dataset}

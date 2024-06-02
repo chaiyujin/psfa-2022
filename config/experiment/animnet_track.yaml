@@ -1,0 +1,51 @@
+# @package _global_
+
+defaults:
+  - /flame@model.animnet.decoder.verts.morphable.flame: base_flame
+  - /test_media@model.test_media: default
+  - override /model: animnet
+  - override /dataset: talk_video
+  - override /datamodule: talk_video
+
+path:
+  exp_dir: ${path.root_dir}/runs/${dataset.speakers.0}/animnet-track/${now:%Y%m%d_%H%M%S}-${model.tag}
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                     Training                                                     * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+trainer:
+  max_epochs: 100
+  check_val_every_n_epoch : 1
+  progress_bar_refresh_rate: 10
+
+callbacks:
+  model_checkpoint:
+    monitor: "epoch-val_metric/mvd-max:lips"
+    mode: "min"
+    save_top_k: 3
+    save_every_n_epochs: 5
+
+  custom_callback:
+    _target_: src.projects.anim.callback.PL_AnimCallback
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Model                                                      * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+model:
+  animnet:
+    decoder:
+      verts:
+        using: blendshape
+
+  loss:
+    rendering: null
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Data                                                       * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+dataset:
+  random_shift_alpha: 0.05
+  need_image: false

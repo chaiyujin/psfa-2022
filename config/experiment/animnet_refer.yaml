@@ -1,0 +1,81 @@
+# @package _global_
+
+defaults:
+  - /flame@model.animnet.decoder.verts.morphable.flame: base_flame
+  - /test_media@model.test_media: default
+  - override /model: animnet
+  - override /dataset: talk_voca
+  - override /datamodule: talk_voca
+
+path:
+  exp_dir: ${path.root_dir}/runs/${dataset.speakers.0}/animnet-refer/${now:%Y%m%d_%H%M%S}-${model.tag}
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                     Training                                                     * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+trainer:
+  max_epochs: 200
+  check_val_every_n_epoch : 1
+  progress_bar_refresh_rate: 10
+
+callbacks:
+  model_checkpoint:
+    monitor: "epoch-val_metric/mvd-max:lips"
+    mode: "min"
+    save_top_k: 3
+    save_every_n_epochs: 5
+
+  custom_callback:
+    _target_: src.projects.anim.callback.PL_AnimCallback
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Model                                                      * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+model:
+  _target_: src.projects.speech_animation.pl_refer.PL_AnimNetRefer
+  _init_: src.projects.speech_animation.pl_refer.pre_compute_paddings
+
+  animnet:
+    encoder:
+      style:
+        using: conv
+        part: face_neye
+        m2i: ${..m2i}
+        mesh_conv: ${..mesh_conv}
+        out_channels: 32
+
+      m2i:
+        mode: nearest
+        image_size: 64
+        nfc: 32
+
+      mesh_conv:
+        in_channels: 3
+        hidden_channels: [16, 32, 32]
+        latent_channels: 64
+        activation: "leaky_relu?negative_slope=0.2"
+        latent_activation: "identity"
+        output_activation: "identity"
+        norm_method: "none"
+        # which kind of encoder/decoder
+        conv_type: 'SpiralConv'
+        ds_factors: [4, 4, 4]  # sampling
+        spiral_seq_lengths: 12  # (optional) SpiralConv specific
+        spiral_dilations: 1
+        K: 6  # (optional) ChebConv specific
+
+    decoder:
+      verts:
+        using: blendshape
+
+  loss:
+    rendering: null
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Data                                                       * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+dataset:
+  random_shift_alpha: 0.05

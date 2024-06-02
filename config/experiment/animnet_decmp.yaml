@@ -1,0 +1,70 @@
+# @package _global_
+
+defaults:
+  - /flame@model.animnet.decoder.verts.morphable.flame: base_flame
+  - /test_media@model.test_media: default
+  - override /model: animnet_decmp
+  - override /dataset: talk_voca
+  - override /datamodule: talk_voca
+
+path:
+  exp_dir: ${path.root_dir}/runs/${dataset.speakers.0}/animnet-track/${now:%Y%m%d_%H%M%S}-${model.tag}
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                     Training                                                     * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+trainer:
+  max_epochs: 200
+  check_val_every_n_epoch : 1
+  progress_bar_refresh_rate: 10
+
+callbacks:
+  model_checkpoint:
+    monitor: "epoch-val_metric/mvd-max:lips"
+    mode: "min"
+    save_top_k: 8
+    save_every_n_epochs: 5
+
+  custom_callback:
+    _target_: src.projects.anim.callback.PL_AnimCallback
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Model                                                      * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+model:
+  _target_: src.projects.speech_animation.pl_decomp.PL_AnimNetDecmp
+  _init_: src.projects.speech_animation.pl_decomp.pre_compute_paddings
+
+  ablation:
+    no_dtw: false
+    no_swp: false
+    no_ph2: false
+    no_cyc: false
+    no_reg: false
+    e2e:    false
+
+  animnet:
+    encoder:
+      style:
+        part: face_neye
+
+      content:
+        part: face_neye
+
+  loss:
+    reg_z_upp_close: 0.0
+
+# * ---------------------------------------------------------------------------------------------------------------- * #
+# *                                                       Data                                                       * #
+# * ---------------------------------------------------------------------------------------------------------------- * #
+
+dataset:
+  random_shift_alpha: 0.05
+
+datamodule:
+  sampler: BatchSamplerWithDtwPair
+  sampler_kwargs:
+    pairs_from_same_speaker: true
+    pairs_from_diff_speaker: true

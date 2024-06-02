@@ -1,0 +1,27 @@
+do: ['misc']
+
+default_extra:
+  swap: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes"
+  idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+  data_fps: 30
+  avoffset: 0
+
+misc:
+  - [
+      "failure", "tst-003",
+      "${path.dataset_dir}/talk_video/celebtalk/data/m003_iphoneXm0/tst-003",
+      {
+        data_fps: 30, avoffset: 0,
+        swap: "${path.dataset_dir}/talk_video/celebtalk/data/m003_iphoneXm0/fitted/tst-003/meshes",
+        idle: "${path.dataset_dir}/talk_video/celebtalk/data/m003_iphoneXm0/fitted/identity/identity.obj"
+      }
+    ]
+  - [
+      "failure", "fx00_test-tst-000",
+      "${path.dataset_dir}/talk_video/celebtalk/data/fx00_test/tst-000",
+      {
+        data_fps: 30, avoffset: 0,
+        swap: "${path.dataset_dir}/talk_video/celebtalk/data/fx00_test/fitted/tst-000/meshes",
+        idle: "${path.dataset_dir}/talk_video/celebtalk/data/fx00_test/fitted/identity/identity.obj"
+      }
+    ]

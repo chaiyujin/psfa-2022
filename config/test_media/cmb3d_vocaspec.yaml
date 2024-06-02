@@ -1,0 +1,19 @@
+do: ['misc']
+
+default_extra:
+  fps: 30
+  avoffset: 1
+  swap: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes"
+  idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+
+misc:
+  # Special cases, where cmb3d may fail
+  - [
+      "vocaset/FaceTalk_170811_03274_TA", "sentence03",
+      "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170811_03274_TA/sentence03",
+      {
+        fps: 30, avoffset: 1,
+        swap: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes",
+        idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+      }
+    ]

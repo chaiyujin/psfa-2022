@@ -1,0 +1,33 @@
+do: ['misc']
+
+default_extra:
+  swap: [
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-001/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-002/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-003/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-004/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-005/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-006/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-007/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-008/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-009/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-010/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-011/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-012/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-013/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-014/meshes",
+  ]
+  idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+  data_fps: "${data.CELEBTALK.DATA_FPS.${model.visualizer.speaker}}"
+  avoffset: 0
+
+misc:
+  - ["vocaset/FaceTalk_170811_03274_TA", "sentence03@${model.visualizer.speaker}", "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170811_03274_TA/sentence03"]
+  - ["vocaset/FaceTalk_170915_00223_TA", "sentence01@${model.visualizer.speaker}", "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170915_00223_TA/sentence01"]
+
+  - ["test-clips", "speech-clip08", "${path.data_dir}/youtube/test-clips/speech-clip08.mp4"]
+  - ["test-clips", "foreign@chinese_clip0", "${path.data_dir}/youtube/test-clips/foreign@chinese_clip0.mp4"]
+  # - ["test-clips", "foreign@deutsch_clip1", "${path.data_dir}/youtube/test-clips/foreign@deutsch_clip1.mp4"]
+  # - ["test-clips", "foreign@japanese_clip0", "${path.data_dir}/youtube/test-clips/foreign@japanese_clip0.mp4"]
+  # - ["test-clips", "foreign@brasil_clip0", "${path.data_dir}/youtube/test-clips/foreign@brasil_clip0.mp4"]

@@ -1,0 +1,62 @@
+# @package _global_
+
+defaults:
+  - override /model: neural_renderer.yaml
+  - override /dataset: talk_video.yaml
+  - override /datamodule: null
+
+path:
+  exp_dir: ${path.runs_dir}/pretrain-nr/${model.tag}
+  data_dir: ${path.root_dir}/data
+
+trainer:
+  max_epochs: 50
+  check_val_every_n_epoch: 1
+
+# -------------------------------------------------------------------------------------------------------------------- #
+#                                                         model                                                        #
+# -------------------------------------------------------------------------------------------------------------------- #
+
+callbacks:
+  custom_callback:
+    _target_: src.projects.anim.callback.PL_AnimCallback
+
+  model_checkpoint:
+    monitor: "epoch-val_loss/nr:fake"
+    mode: "min"
+    save_top_k: 1
+    save_last: false
+    save_every_n_epochs: 10
+
+model:
+  wanna_fps: 30
+
+  neural_renderer:
+    clip_sources: "${dataset.possible_clip_sources}"
+
+# -------------------------------------------------------------------------------------------------------------------- #
+#                                                       datamodel                                                      #
+# -------------------------------------------------------------------------------------------------------------------- #
+
+datamodule:
+  _target_: src.datamodules.talk_video.TalkVideoDataModule
+
+  batch_size: 8  # 8 is better than 32 for f000_watson
+  num_workers: 4
+  pin_memory: true
+  train_source: ["train.csv"]
+  valid_source: ["valid.csv"]
+  dataset_config: ${dataset}
+
+dataset:
+  src_seq_frames: 1
+  tgt_seq_frames: 1
+  src_seq_pads: [0, 0]
+  company_audio: none
+
+  need_image: true
+  need_audio: false
+  need_verts: true
+
+  random_shift_alpha: 0  # should not interpolate images
+  random_shift_index: False  # no need to shift index, due to 1 seq frame

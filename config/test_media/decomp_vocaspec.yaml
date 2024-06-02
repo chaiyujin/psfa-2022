@@ -1,0 +1,59 @@
+do: ['misc']
+
+default_extra:
+  fps: 30
+  avoffset: 1
+  swap: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes"
+  idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+
+misc:
+  # Special cases, where cmb3d may fail
+  - [
+      "vocaset/FaceTalk_170811_03274_TA", "sentence03",
+      "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170811_03274_TA/sentence03",
+      {
+        fps: 30, avoffset: 1,
+        swap: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes",
+        idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+      }
+    ]
+  - [
+      "vocaset/FaceTalk_170811_03274_TA", "sentence03@00138_TA",
+      "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170811_03274_TA/sentence03",
+      {
+        fps: 60, avoffset: 6,
+        swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170809_00138_TA/sentence03/offsets.npy",
+      }
+    ]
+  - [
+      "vocaset/FaceTalk_170811_03274_TA", "sentence03@00128_TA",
+      "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170811_03274_TA/sentence03",
+      {
+        fps: 60, avoffset: 6,
+        swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170904_00128_TA/sentence03/offsets.npy",
+      }
+    ]
+  - [
+      "vocaset/FaceTalk_170811_03274_TA", "sentence03@00137_TA",
+      "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170811_03274_TA/sentence03",
+      {
+        fps: 60, avoffset: 6,
+        swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170725_00137_TA/sentence03/offsets.npy",
+      }
+    ]
+  - [
+      "vocaset/FaceTalk_170811_03274_TA", "sentence03@03272_TA",
+      "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170811_03274_TA/sentence03",
+      {
+        fps: 60, avoffset: 6,
+        swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170728_03272_TA/sentence03/offsets.npy",
+      }
+    ]
+  - [
+      "vocaset/FaceTalk_170811_03274_TA", "sentence03@self",
+      "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170811_03274_TA/sentence03",
+      {
+        fps: 60, avoffset: 6,
+        swap: "${path.dataset_dir}/flame_mesh/vocaset_data/FaceTalk_170811_03274_TA/sentence03/offsets.npy",
+      }
+    ]

@@ -1,0 +1,12 @@
+do: ['words']
+
+default_extra:
+  fps: 30
+  avoffset: 1
+  swap: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes"
+  idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+
+words:
+  dir: "${path.data_dir}/words-list/WORDS"
+  pattern: "[a-z '\\-]+\\.mp3"
+  recursive: false

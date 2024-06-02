@@ -1,0 +1,46 @@
+# data settings
+audio: ${data.audio}
+video: ${data.video}
+
+# dataset settings
+data_src_talk: "???"
+root_talk: ${path.data_dir}/datasets/talk_video/${lower:${.data_src_talk}}
+root_voca: ${path.data_dir}/datasets/flame_mesh
+speakers_talk: []
+speakers_voca: []  # ${data.VOCASET.REAL3D_SPEAKERS}
+speakers: ${cat:${.speakers_talk},${.speakers_voca}}
+used_seq_ids: null
+seq_ids_used_duration: { all: full }
+possible_clip_sources: ${data.${upper:${.data_src_talk}}.VIDEO_SOURCES}
+
+style_ids: ${rev_map:${.speakers}}
+gt_for_swap: false
+swap_using_self: false
+
+# from Network
+src_seq_frames: ${model.data_info.src_seq_frames}
+tgt_seq_frames: ${model.data_info.tgt_seq_frames}
+src_seq_pads:   ${model.data_info.src_seq_pads}
+pad_tgt:        ${model.data_info.pad_tgt}
+# avoffset correction
+correct_avoffset: ${model.data_info.correct_avoffset}
+# audio
+company_audio: "win"
+using_audio_features: ["deepspeech"]
+wanna_fps: ${model.wanna_fps}
+
+# flags
+need_image: false
+need_audio: true
+need_verts: true
+
+# subsequence Segment
+training_hop_factor : 4.0
+
+# data Augmentation
+random_scale_offsets: false
+random_shift_alpha: 0
+random_shift_index: true
+random_aug_audio:
+  time_stretch: 2
+  feat_scaling: 0.2

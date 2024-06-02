@@ -1,0 +1,28 @@
+version: 1
+formatters:
+  simple:
+    format: '%(message)s'
+  with_info:
+    format: '[%(asctime)s][%(name)s][%(levelname)s] - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+handlers:
+  rich:
+    class: src.engine.logging.RichHandlerExitAtFatal
+    show_path: false
+    rich_tracebacks: true
+    omit_repeated_times: true
+    log_time_format: '[%H:%M:%S]'
+    level: DEBUG
+  console:
+    class: logging.StreamHandler
+    formatter: with_info
+    level: DEBUG
+  file:
+    class: logging.FileHandler
+    filename: ${hydra.job.name}.log
+    formatter: with_info
+    level: INFO
+root:
+  handlers: [console, file]
+
+disable_existing_loggers: false

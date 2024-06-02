@@ -1,0 +1,84 @@
+# @package _global_
+
+defaults:
+  # * base config schema, which is already stored
+  - path: base_path
+  - callbacks/model_checkpoint: base_model_checkpoint
+  - logger/tensorboard: base_tensorboard_logger
+  - trainer: base_trainer
+
+  # * som global settings
+  - data: default
+  - utils: default
+
+  # * model, dataset, datamodul
+  - model: null
+  - dataset: null
+  - datamodule: null
+
+  # * _self_ means this file.
+  # * It will override things before and be overried by configs after.
+  # * We will override some variables in 'experiment'.
+  # * Read https://hydra.cc/docs/upgrades/1.0_to_1.1/default_composition_order/
+  - _self_
+
+  # experiment
+  - experiment: null
+  - hparams_search: null
+
+  # hydra
+  - hydra: default
+  # - override hydra/job_logging: default
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+
+# * Runing mode
+mode: "???"
+# * Seed everything
+seed: 12345
+
+# * For loading from a checkpoint
+load_from: null
+strict: true
+
+# * Misc configs
+debug: False
+fast_dev_run: False
+overwrite_log: False
+matplotlib_using: null
+print_config: True
+ignore_warnings: True
+
+# * loggger
+logger:
+  tensorboard:
+    save_dir: "tb/"
+    name: ""
+    version: ""
+    log_graph: False
+    default_hp_metric: False
+    prefix: ""
+
+# * trainer
+trainer:
+  gpus: 1  # set `1` to train on GPU, `0` to train on CPU only
+  max_epochs: 10
+  accumulate_grad_batches: 1
+  log_every_n_steps: 50
+  check_val_every_n_epoch : 5
+  weights_summary: null
+
+# * callbacks
+callbacks:
+  model_checkpoint:
+    save_last: True  # additionaly always save model from last epoch
+    verbose: False
+    dirpath: "checkpoints/"
+    filename: "{epoch:03d}"
+    save_every_n_epochs: null
+  progress:
+    _target_: src.engine.lightning.tqdm_progress.TQDMProgressBar
+    refresh_rate: 1
+    # _target_: lib.lightning.rich_progress.RichProgressBar
+    # refresh_rate_per_second: 10
+    # leave: false

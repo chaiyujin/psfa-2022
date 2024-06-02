@@ -1,0 +1,20 @@
+do: ['misc']
+
+default_extra:
+  swap: [
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-001/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-002/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-003/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-004/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-005/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-006/meshes",
+  ]
+  idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+  data_fps: "${data.CELEBTALK.DATA_FPS.${model.visualizer.speaker}}"
+  avoffset: 0
+
+misc:
+  - ["${model.visualizer.speaker}", "trn-000", "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/trn-000"]
+  - ["${model.visualizer.speaker}", "trn-001", "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/trn-001"]
+  - ["${model.visualizer.speaker}", "trn-002", "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/trn-002"]

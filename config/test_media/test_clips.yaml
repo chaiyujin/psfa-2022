@@ -1,0 +1,92 @@
+do: ['misc']
+
+default_extra:
+  swap: [
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-001/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-002/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-003/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-004/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-005/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-006/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-007/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-008/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-009/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-010/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-011/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-012/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-013/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-014/meshes",
+  ]
+  idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+  data_fps: "${data.CELEBTALK.DATA_FPS.${model.visualizer.speaker}}"
+  avoffset: 0
+
+misc:
+  - ["test-clips", "speech@clip0", "~/assets/eval_data/clips/speech@clip0.mp4"]
+  # Test clips
+  # - ["test-clips", "key_peele-001", "${path.data_dir}/youtube/test-clips/key_peele-001.wav"]
+  # - ["test-clips", "key_peele-002", "${path.data_dir}/youtube/test-clips/key_peele-002.wav"]
+  # - ["test-clips", "key_peele-003", "${path.data_dir}/youtube/test-clips/key_peele-003.wav"]
+  # - ["test-clips", "key_peele-004", "${path.data_dir}/youtube/test-clips/key_peele-004.wav"]
+  # - ["test-clips", "key_peele-005", "${path.data_dir}/youtube/test-clips/key_peele-005.wav"]
+  # - ["test-clips", "key_peele-006", "${path.data_dir}/youtube/test-clips/key_peele-006.wav"]
+  # - ["test-clips", "key_peele-007", "${path.data_dir}/youtube/test-clips/key_peele-007.wav"]
+
+  # - ["test-clips", "foreign@chinese_clip0", "${path.data_dir}/youtube/test-clips/foreign@chinese_clip0.mp4"]
+  # - ["test-clips", "foreign@chinese_clip4", "${path.data_dir}/youtube/test-clips/foreign@chinese_clip4.mp4"]
+  # - ["test-clips", "foreign@deutsch_clip0", "${path.data_dir}/youtube/test-clips/foreign@deutsch_clip0.mp4"]
+  # - ["test-clips", "foreign@deutsch_clip1", "${path.data_dir}/youtube/test-clips/foreign@deutsch_clip1.mp4"]
+  # - ["test-clips", "foreign@french_clip0",  "${path.data_dir}/youtube/test-clips/foreign@french_clip0.mp4"]
+  # - ["test-clips", "foreign@italian_clip0", "${path.data_dir}/youtube/test-clips/foreign@italian_clip0.mp4"]
+  # - ["test-clips", "foreign@italian_clip1", "${path.data_dir}/youtube/test-clips/foreign@italian_clip1.mp4"]
+  # - ["test-clips", "foreign@japanese_clip0", "${path.data_dir}/youtube/test-clips/foreign@japanese_clip0.mp4"]
+  # - ["test-clips", "foreign@korean_clip0", "${path.data_dir}/youtube/test-clips/foreign@korean_clip0.mp4"]
+  # - ["test-clips", "foreign@russian_clip0", "${path.data_dir}/youtube/test-clips/foreign@russian_clip0.mp4"]
+  # - ["test-clips", "foreign@spanish_clip0", "${path.data_dir}/youtube/test-clips/foreign@spanish_clip0.mp4"]
+  # - ["test-clips", "foreign@spanish_clip1", "${path.data_dir}/youtube/test-clips/foreign@spanish_clip1.mp4"]
+  # - ["test-clips", "foreign@brasil_clip0", "${path.data_dir}/youtube/test-clips/foreign@brasil_clip0.mp4"]
+
+  # - ["test-clips", "speech-clip06", "${path.data_dir}/youtube/test-clips/speech-clip06.mp4"]
+  # - ["test-clips", "speech-clip07", "${path.data_dir}/youtube/test-clips/speech-clip07.mp4"]
+  # - ["test-clips", "speech-clip08", "${path.data_dir}/youtube/test-clips/speech-clip08.mp4"]
+  # - ["test-clips", "speech-clip12", "${path.data_dir}/youtube/test-clips/speech-clip12.mp4"]
+  # - ["test-clips", "speech-clip13", "${path.data_dir}/youtube/test-clips/speech-clip13.mp4"]
+  # - ["test-clips", "speech-clip14", "${path.data_dir}/youtube/test-clips/speech-clip14.mp4"]
+
+  # - ["test-clips", "sig17-nv0", "${path.data_dir}/previous_works/sig17-nv0.mp4"]
+  # - ["test-clips", "sig17-nv1", "${path.data_dir}/previous_works/sig17-nv1.mp4"]
+  # - ["test-clips", "sig17-nv2", "${path.data_dir}/previous_works/sig17-nv2.mp4"]
+  # - ["test-clips", "sig17-nv3", "${path.data_dir}/previous_works/sig17-nv3.mp4"]
+  # - ["test-clips", "sig17-nv4", "${path.data_dir}/previous_works/sig17-nv4.mp4"]
+  # - ["test-clips", "voca-00",   "${path.data_dir}/previous_works/voca-00.mp4"]
+  # - ["test-clips", "voca-01",   "${path.data_dir}/previous_works/voca-01.mp4"]
+  # - ["test-clips", "voca-03",   "${path.data_dir}/previous_works/voca-03.mp4"]
+  # - ["test-clips", "voca-04",   "${path.data_dir}/previous_works/voca-04.mp4"]
+  # - ["test-clips", "voca-05",   "${path.data_dir}/previous_works/voca-05.mp4"]
+
+  # - ["test-clips2", "jess-000", "${path.data_dir}/youtube/test-clips2/jess-000.mp4"]
+  # - ["test-clips2", "jess-001", "${path.data_dir}/youtube/test-clips2/jess-001.mp4"]
+  # - ["test-clips2", "jess-002", "${path.data_dir}/youtube/test-clips2/jess-002.mp4"]
+  # - ["test-clips2", "jess-003", "${path.data_dir}/youtube/test-clips2/jess-003.mp4"]
+  # - ["test-clips2", "test-000", "${path.data_dir}/youtube/test-clips2/test-000.mp4"]
+  # - ["test-clips2", "test-001", "${path.data_dir}/youtube/test-clips2/test-001.mp4"]
+  # - ["test-clips2", "test-002", "${path.data_dir}/youtube/test-clips2/test-002.mp4"]
+  # - ["test-clips2", "test-003", "${path.data_dir}/youtube/test-clips2/test-003.mp4"]
+  # - ["test-clips2", "test-004", "${path.data_dir}/youtube/test-clips2/test-004.mp4"]
+  # - ["test-clips2", "test-005", "${path.data_dir}/youtube/test-clips2/test-005.mp4"]
+  # - ["test-clips2", "test-006", "${path.data_dir}/youtube/test-clips2/test-006.mp4"]
+  # - ["test-clips2", "ch-000", "${path.data_dir}/youtube/test-clips2/ch-000.mp4"]
+  # - ["test-clips2", "de-000", "${path.data_dir}/youtube/test-clips2/de-000.mp4"]
+  # - ["test-clips2", "fr-000", "${path.data_dir}/youtube/test-clips2/fr-000.mp4"]
+  # - ["test-clips2", "ch-001", "${path.data_dir}/youtube/test-clips2/ch-001.mp4"]
+  # - ["test-clips2", "ch-002", "${path.data_dir}/youtube/test-clips2/ch-002.mp4"]
+  # - ["test-clips2", "de-001", "${path.data_dir}/youtube/test-clips2/de-001.mp4"]
+  # - ["test-clips2", "it-000", "${path.data_dir}/youtube/test-clips2/it-000.mp4"]
+  # - ["test-clips2", "it-001", "${path.data_dir}/youtube/test-clips2/it-001.mp4"]
+  # - ["test-clips2", "it-002", "${path.data_dir}/youtube/test-clips2/it-002.mp4"]
+
+  # - ["test-clips-iphone", "m0-neutral-151", "/media/chaiyujin/Yuki-SSD2/iPhoneXRecord/version2/m0/neutral/sent151/audio.wav"]  # VOCA4 (from 1)
+  # - ["test-clips-iphone", "m0-neutral-153", "/media/chaiyujin/Yuki-SSD2/iPhoneXRecord/version2/m0/neutral/sent153/audio.wav"]  # VOCA3 (from 1)
+  # - ["test-clips-iphone", "f0-neutral-151", "/media/chaiyujin/Yuki-SSD2/iPhoneXRecord/version2/f0/neutral/sent151/audio.wav"]  # VOCA4 (from 1)
+  # - ["test-clips-iphone", "f0-neutral-153", "/media/chaiyujin/Yuki-SSD2/iPhoneXRecord/version2/f0/neutral/sent153/audio.wav"]  # VOCA3 (from 1)

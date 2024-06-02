@@ -1,0 +1,80 @@
+do: []
+
+# * for dir and pattern
+words_sozox:
+  dir: "${env:HOME}/Documents/GitHub/pronunciation/data/sozox/words"
+  pattern: "[A-Z ']+\\.mp4"
+
+words_google:
+  dir: "${path.data_dir}/words-google"
+  pattern: "[a-z '\\-]+\\.mp3"
+
+words_cambridge:
+  dir: "${path.data_dir}/words-list/cambridgedictionary/success"
+  pattern: "[a-z '\\-]+\\.mp3"
+  recursive: false  # default is true
+
+words_nu6:
+  dir: "${path.data_dir}/words-list/NU-6"
+  pattern: "[a-z '\\-]+\\.mp3"
+  recursive: true
+
+words_pb50:
+  dir: "${path.data_dir}/words-list/PAL-PB50"
+  pattern: "[a-z '\\-]+\\.mp3"
+  recursive: true
+
+words_my:
+  dir: "${path.data_dir}/words-list/MY"
+  pattern: "[a-z '\\-]+\\.mp3"
+  recursive: false
+
+speech:
+  dir: "${env:HOME}/Videos/eval_data"
+  pattern: "speech@clip\\d+.mp4"
+
+# * for specific dataset
+vocaset:
+  data_dir: "${path.dataset_dir}/flame_mesh/vocaset_data"
+  speakers: [
+    [FaceTalk_170725_00137_TA, [0, 5]], [FaceTalk_170725_00137_TA, [35, 40]],
+    [FaceTalk_170728_03272_TA, [0, 5]], [FaceTalk_170728_03272_TA, [35, 40]],
+    [FaceTalk_170731_00024_TA, [0, 5]], [FaceTalk_170731_00024_TA, [35, 40]],
+    [FaceTalk_170809_00138_TA, [0, 5]], [FaceTalk_170809_00138_TA, [35, 40]],
+    [FaceTalk_170811_03274_TA, [0, 5]], [FaceTalk_170811_03274_TA, [35, 40]],
+    [FaceTalk_170811_03275_TA, [0, 5]], [FaceTalk_170811_03275_TA, [35, 40]],
+    [FaceTalk_170904_00128_TA, [0, 5]], [FaceTalk_170904_00128_TA, [35, 40]],
+    [FaceTalk_170904_03276_TA, [0, 5]], [FaceTalk_170904_03276_TA, [35, 40]],
+    [FaceTalk_170908_03277_TA, [0, 5]], [FaceTalk_170908_03277_TA, [35, 40]],
+    [FaceTalk_170912_03278_TA, [0, 5]], [FaceTalk_170912_03278_TA, [35, 40]],
+    [FaceTalk_170913_03279_TA, [0, 5]], [FaceTalk_170913_03279_TA, [35, 40]],
+    [FaceTalk_170915_00223_TA, [0, 5]], [FaceTalk_170915_00223_TA, [35, 40]],
+  ]
+  # - FaceTalk_170908_03277_TA
+  # - [FaceTalk_170811_03275_TA, [0, 40]]
+
+# * for simple sentences (path) or tuples (speaker, tag, path)
+misc:
+  - ${path.data_dir}/youtube/test-clips/key_peele-001.wav
+  - ${path.data_dir}/youtube/test-clips/key_peele-002.wav
+  - ${path.data_dir}/youtube/test-clips/key_peele-003.wav
+  - ${path.data_dir}/youtube/test-clips/key_peele-004.wav
+  - ${path.data_dir}/youtube/test-clips/key_peele-005.wav
+  - ${path.data_dir}/youtube/test-clips/key_peele-006.wav
+  - ${path.data_dir}/youtube/test-clips/key_peele-007.wav
+  - ${path.data_dir}/youtube/test-clips/netflex_is_a_joke-001.wav
+  - ${path.data_dir}/youtube/test-clips/south_park-000.wav
+  - ${path.data_dir}/youtube/test-clips/south_park-001.wav
+  - ${path.data_dir}/youtube/test-clips/south_park-002.wav
+  - ${path.data_dir}/youtube/test-clips/speech@clip1.mp4
+  - ${path.data_dir}/youtube/test-clips/speech@clip3.mp4
+  - ${path.data_dir}/youtube/test-clips/speech@clip4.mp4
+  - ${path.data_dir}/youtube/test-clips/speech@clip5.mp4
+  - ${path.data_dir}/youtube/test-clips/speech@clip13.mp4
+  - ${path.data_dir}/youtube/test-clips/foreign@chinese_clip4.mp4
+  - ${path.data_dir}/youtube/test-clips/foreign@deutsch_clip0.mp4
+  - ${path.data_dir}/youtube/test-clips/foreign@french_clip0.mp4
+  - ${path.data_dir}/youtube/test-clips/foreign@italian_clip0.mp4
+  - ${path.data_dir}/youtube/test-clips/foreign@japanese_clip0.mp4
+  - ${path.data_dir}/youtube/test-clips/foreign@korean_clip0.mp4
+  - ${path.data_dir}/youtube/test-clips/foreign@russian_clip0.mp4

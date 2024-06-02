@@ -1,0 +1,68 @@
+_target_: src.projects.meshae.pl.PL_MeshAutoencoder
+
+encoder:
+  using: m2i
+  part: face_neye
+  m2i: {mode: nearest, image_size: 64, nfc: 32}
+  out_channels: 256
+
+encoder_lower:
+  using: m2i
+  part: face_lower
+  m2i: {mode: nearest, image_size: 64, nfc: 32}
+  out_channels: 192
+
+encoder_upper:
+  using: m2i
+  part: eyebrows
+  m2i: {mode: nearest, image_size: 64, nfc: 32}
+  out_channels: 64
+
+decoder:
+  using: blendshape
+  morphable:
+    using: flame
+    flame:
+      n_shape: 100
+      n_exp: 50
+  blendshape:
+    trainable: true
+    using_basis: 'flame'
+    n_components: 50
+    flame_model_path: ${..morphable.flame.model_path}
+    # mlp projection
+    shared_mlp: { out_channels: [256, 256] }
+    specific_mlp: { hidden_channels: [128] }
+    norm_method: "none"
+    activation: 'lrelu0.2'
+
+visualizer:
+  painter:
+    - demo_meshae
+  # tb plot settings
+  draw_gap_steps: 400
+  draw_grid_size: 256
+  # video settings
+  video_gap_epochs: 5
+  video_grid_size: 256
+  video_1st_epoch: true
+  # generate or not
+  generate_train: true
+  generate_valid: true
+  generate_test:  false
+  # dump or not
+  dump_metrics: true
+  dump_audio:   false
+  dump_offsets: false
+  dump_images:  false
+  dump_coeffs:  false
+  # overwrite or not
+  overwrite_videos: false
+
+loss:
+  part: face_noeyeballs
+  scale_pos: 1.0
+  scale_motion: 0.0
+  scale_inv_part: 0.1
+  scale_remained: 0.1
+  scale_lip_diff: 0.0

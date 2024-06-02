@@ -1,0 +1,52 @@
+# boost
+# src/data/mesh/numpy/psbody
+
+# --------- pytorch --------- #
+torch==1.7.1
+torchvision==0.8.2
+torchaudio==0.7.2
+tensorflow==1.15.3
+pytorch-lightning==1.5.8
+torchmetrics
+
+# --------- loggers --------- #
+tensorboard==2.8.0
+
+# --------- hydra --------- #
+hydra-core==1.1.1
+hydra-colorlog==1.1.0
+
+# --------- linters --------- #
+pre-commit
+black
+isort
+flake8
+
+# --------- others --------- #
+opencv-python
+chumpy
+pytest
+scikit-learn
+scikit-image
+rich  # Rich is a Python library for rich text and beautiful formatting in the terminal.
+sh  # sh is a full-fledged subprocess replacement for Python
+seaborn  # Seaborn is a Python data visualization library based on matplotlib.
+pudb
+python-dotenv
+lmdb
+
+# --------- project -------- #
+python_speech_features
+filetype
+ffmpeg-python
+h5py
+plyfile
+frozendict
+get-video-properties
+
+openmesh
+librosa>=0.8.0
+webrtcvad>=2.0.10
+
+# nvdiffrast
+git+https://github.com/NVlabs/nvdiffrast.git@main#nvdiffrast

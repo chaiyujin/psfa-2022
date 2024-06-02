@@ -1,0 +1,5 @@
+pip install torch-scatter==2.0.7 -f https://data.pyg.org/whl/torch-1.7.1+cu102.html "$@"
+pip install torch-sparse==0.6.9  -f https://data.pyg.org/whl/torch-1.7.1+cu102.html "$@"
+pip install torch-cluster==1.5.9 -f https://data.pyg.org/whl/torch-1.7.1+cu102.html "$@"
+pip install torch-spline-conv==1.2.1 -f https://data.pyg.org/whl/torch-1.7.1+cu102.html "$@"
+pip install torch-geometric "$@"
