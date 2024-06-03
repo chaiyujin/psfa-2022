@@ -1,0 +1,12 @@
+datasets/
+pretrain_models
+bfm_to_flame
+*.obj
+*.npy
+.mesh_to_image
+*.pkg
+*.mp4
+*.wav
+*.mp3
+*.TextGrid
+debug*/
