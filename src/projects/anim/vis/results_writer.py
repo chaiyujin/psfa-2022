@@ -6,7 +6,7 @@ import numpy as np
 import torch
 from omegaconf import DictConfig
 
-from src.data import get_vocaset_template_triangles
+from assets import get_vocaset_template_triangles
 from src.data import image as imutils
 from src.data.mesh.io import save_obj
 from src.data.video import VideoWriter
@@ -166,7 +166,7 @@ class ResultsWriter(object):
 
     def create_writers(self, draw_fn_list):
         all_exists = True
-        kwargs = dict(src_audio_path=self.src_apath, fps=float(self.fps), makedirs=True, high_quality=True)
+        kwargs = dict(audio_source=self.src_apath, fps=float(self.fps), makedirs=True, quality="high")
         if not self.draw_name_postfix:
             assert len(draw_fn_list) == 1
         # iter fn list, create the ones we need
@@ -379,8 +379,10 @@ class ResultsWriter(object):
         for writer in self.writers:
             if writer is not None:
                 writer.release()
+
         # Guard previous dumped results if nothing is written
         if self.nothing_written:
+            log.info(f"Results saved in: {self.out_prefix}")
             return
 
         # * save metrics
@@ -419,3 +421,5 @@ class ResultsWriter(object):
             for key in self.to_dump_coeffs:
                 arr = np.asarray(self.to_dump_coeffs[key], dtype=np.float32)
                 np.save(os.path.join(self.out_prefix, f"dump-coeffs-{key}.npy"), arr)
+
+        log.info(f"Results saved in: {self.out_prefix}")

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from src.data import assets
+import assets
 
 
 class FlameMeshCropper(nn.Module):

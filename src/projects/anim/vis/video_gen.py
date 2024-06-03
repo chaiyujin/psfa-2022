@@ -13,8 +13,7 @@ from omegaconf import DictConfig, ListConfig
 from torch.utils.data.dataloader import default_collate
 from tqdm import tqdm, trange
 
-from src.data import ASSETS_ROOT, DATA_ROOT, DATASET_ROOT, get_vocaset_template_triangles, get_vocaset_template_vertices
-from src.data import image as imutils
+from assets import DATASET_ROOT
 from src.data.mesh import load_mesh
 from src.datasets.base.anim import AnimBaseDataset, Range
 from src.datasets.talk_voca import load_and_concat_all_offsets_swap
@@ -272,6 +271,7 @@ class VideoGenerator(object):
             if len(media) >= 4:
                 extra_kwargs = media[3]
             # must exist source media
+            media_path = os.path.expanduser(media_path)
             if not os.path.exists(media_path):
                 log.warning("Failed to find {}".format(media_path))
                 continue
@@ -393,7 +393,8 @@ class VideoGenerator(object):
                     return batch
 
                 batch = default_collate([data])
-                batch = _to_cuda(batch)
+                if torch.cuda.is_available():
+                    batch = _to_cuda(batch)
 
                 # run pl module
                 self.pl_module.eval()

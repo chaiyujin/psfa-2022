@@ -2,11 +2,21 @@ import cv2
 import numpy as np
 import torch
 
-from src.data import get_selection_triangles, get_selection_vidx, get_vocaset_template_triangles
-from src.data.mesh import viewer as mesh_viewer
+from assets import (
+    get_selection_triangles,
+    get_selection_vidx,
+    get_vocaset_template_triangles,
+    get_vocaset_template_vertices,
+)
+from src.data.mesh import mesh_renderer
 
 # from src.engine.graphics import matrix
 from src.engine.painter import color_mapping, put_colorbar
+
+mesh_renderer.set_template(
+    v=get_vocaset_template_vertices(),
+    f=get_vocaset_template_triangles(),
+)
 
 
 def _verts_and_tris(verts):
@@ -27,13 +37,16 @@ def _pvm(intrs=(2.0, 0.5, 0.5), transl=(0, 0, -0.5), euler=(0.0, 0.0, 0.0)):
 # _pvm_front = _pvm((2.8, 0.5, 0.5), (+0.00, 0, -0.65), (0.0, 0.0, 0.0))
 # _pvm_side = _pvm((2.8, 0.5, 0.5), (-0.05, 0, -0.65), (0.0, 1.4, 0.0))
 # _pvm_half = _pvm((2.8, 0.5, 0.5), (-0.02, 0, -0.65), (0.0, 0.7, 0.0))
-_mat_eye = np.eye(4, dtype=np.float32)
-_common_settings = dict(dtype=np.float32, mat_view=_mat_eye, mat_model=_mat_eye)
+# _mat_eye = np.eye(4, dtype=np.float32)
+# _common_settings = dict(dtype=np.float32, mat_view=_mat_eye, mat_model=_mat_eye)
 
 
 # fmt: off
 def render(verts, A=256, side=False, shading='smooth'):
-    return np.zeros((A, A, 3), dtype=np.uint8)
+    mesh_renderer.set_image_size(A, A)
+    img = mesh_renderer.render(verts)
+    return img[..., :3].astype(np.float32) / 255.0
+    # return np.zeros((A, A, 3), dtype=np.uint8)
     _, verts, tris = _verts_and_tris(verts)
     if side is False:
         pvm = _pvm_front

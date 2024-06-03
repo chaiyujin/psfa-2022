@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from tqdm import tqdm
 
-from src.data.assets import ASSETS_ROOT
+from assets import ASSETS_ROOT
 from src.mm_fitting.libmorph.renderer.template import MeshTemplate
 
 from .rast_2d import cython_rasterize_2d

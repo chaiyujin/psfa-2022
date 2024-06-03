@@ -7,7 +7,7 @@ DATA_DIR = os.path.expanduser("~/assets/3DMM-FLAME/assets")
 @dataclass
 class FLAMEConfig:
     # * For FLAME
-    model_path: str = os.path.join(DATA_DIR, "FLAME2020", "generic_model.pkl")
+    model_path: str = os.path.join(DATA_DIR, "FLAME2020", "generic_model-np.pkl")
     n_shape: int = 100
     n_exp: int = 50
 

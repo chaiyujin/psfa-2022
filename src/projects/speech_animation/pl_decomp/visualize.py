@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.data import get_vocaset_template_vertices
+from assets import get_vocaset_template_vertices
 from src.engine.mesh_renderer import render, render_heatmap
 from src.engine.painter import Text, draw_canvas, put_texts
 from src.projects.anim.vis import register_painter

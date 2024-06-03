@@ -3,8 +3,7 @@ from functools import lru_cache
 
 import numpy as np
 
-from src.data import DATASET_ROOT
-from src.data.assets import FACE_LOWER_VIDX, FACE_NEYE_VIDX, LIPS_VIDX
+from assets import DATASET_ROOT, FACE_LOWER_VIDX, FACE_NEYE_VIDX, LIPS_VIDX
 from src.data.mesh import load_mesh
 from src.engine.misc import filesys
 from src.engine.painter import figure_to_numpy

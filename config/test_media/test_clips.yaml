@@ -23,7 +23,6 @@ default_extra:
   avoffset: 0
 
 misc:
-  - ["test-clips", "speech@clip0", "~/assets/eval_data/clips/speech@clip0.mp4"]
   # Test clips
   # - ["test-clips", "key_peele-001", "${path.data_dir}/youtube/test-clips/key_peele-001.wav"]
   # - ["test-clips", "key_peele-002", "${path.data_dir}/youtube/test-clips/key_peele-002.wav"]

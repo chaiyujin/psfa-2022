@@ -4,8 +4,8 @@ import torch
 import torch.nn as nn
 from omegaconf import DictConfig
 
+from assets import FACE_LOWER_VIDX, FACE_NEYE_VIDX, FACE_NOEYEBALLS_VIDX, LIPS_VIDX
 from src import constants, metrics
-from src.data.assets import FACE_LOWER_VIDX, FACE_NEYE_VIDX, FACE_NOEYEBALLS_VIDX, LIPS_VIDX
 from src.datasets.base.anim import AnimBaseDataset
 from src.engine import ops
 from src.engine.builder import load_or_build

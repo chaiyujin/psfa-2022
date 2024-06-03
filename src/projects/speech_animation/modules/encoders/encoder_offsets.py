@@ -4,7 +4,7 @@ from typing import List, Tuple
 
 import torch.nn as nn
 
-from src.data import ASSETS_ROOT
+from assets import ASSETS_ROOT
 from src.modules.flame_mesh_cropper import FlameMeshCropper
 from src.modules.layers import MLP
 from src.modules.meshae import MeshConvEncoder

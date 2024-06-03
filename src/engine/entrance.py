@@ -200,7 +200,9 @@ def generate(config: DictConfig) -> Optional[float]:
 
     # * Init Lightning datamodule
     datamodule: Optional[LightningDataModule] = None
-    if "datamodule" in config:
+    if config.get("datamodule") is not None and (
+        config.get("generate_train") is True or config.get("generate_valid") is True
+    ):
         log.info(f"Instantiating datamodule <{config.datamodule._target_}>")
         datamodule = hydra.utils.instantiate(config.datamodule)
         datamodule.setup()
@@ -230,7 +232,8 @@ def generate(config: DictConfig) -> Optional[float]:
         global_step = 0
 
     # FIXME: config the device for model to generate
-    model.cuda()
+    if torch.cuda.is_available():
+        model.cuda()
 
     if config.get("epoch") is not None:
         epoch = config.epoch

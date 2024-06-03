@@ -4,8 +4,8 @@ from typing import Any, Iterable, List, Optional, Tuple, Union
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+from assets import PATH_DEFAULT_FONT
 from src.data import image as imutils
-from src.data.assets import PATH_DEFAULT_FONT
 
 
 @lru_cache(maxsize=8)

@@ -10,8 +10,8 @@ import numpy as np
 import soundfile as sf
 from tqdm import tqdm, trange
 
+from assets import get_vocaset_template_triangles, get_vocaset_template_vertices
 from src.cpp import deformation
-from src.data import get_vocaset_template_triangles, get_vocaset_template_vertices
 from src.data import image as imutils
 from src.data.mesh import io as meshio
 from src.data.video import VideoWriter

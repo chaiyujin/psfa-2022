@@ -4,8 +4,8 @@ import cv2
 import torch
 import torch.nn.functional as F
 
-from src.data import assets, get_vocaset_template_triangles, get_vocaset_template_vertices
-from src.data.assets import EYES_VIDX
+import assets
+from assets import EYES_VIDX
 from src.engine.mesh_renderer import render
 from src.engine.seq_ops import fold
 

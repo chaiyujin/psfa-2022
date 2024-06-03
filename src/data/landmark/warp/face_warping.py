@@ -9,7 +9,7 @@ import torch
 import torch.nn
 import torch.nn.functional as F
 
-from src.data.assets import ASSETS_ROOT
+from assets import ASSETS_ROOT
 
 from ..io import denormalize, normalize
 

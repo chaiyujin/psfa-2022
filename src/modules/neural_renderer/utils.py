@@ -6,7 +6,7 @@ import numpy as np
 import torch
 from torch import Tensor
 
-from src.data import ASSETS_ROOT, get_vocaset_template_triangles
+from assets import ASSETS_ROOT, get_vocaset_template_triangles
 
 
 def get_flame_landmark_barycoords():

@@ -12,9 +12,9 @@ class PathConf:
     generate_dir: Optional[str] = None
 
     # path to folder with data
-    data_dir: str = "${path.root_dir}/data"
-    assets_dir: str = "${path.root_dir}/data/assets"
-    dataset_dir: str = "${path.root_dir}/data/datasets"
+    assets_dir: str = "${path.root_dir}/assets"
+    dataset_dir: str = "${path.root_dir}/assets/datasets"
+    data_dir: str = "${path.root_dir}/src/data"
     archived_dir: str = "${path.root_dir}/archived"
     snaps_dir: str = "${path.root_dir}/.snaps"
     runs_dir: str = "${path.root_dir}/runs"

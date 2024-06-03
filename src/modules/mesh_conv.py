@@ -18,7 +18,7 @@ from torch_geometric.typing import OptTensor
 from torch_geometric.utils import add_self_loops, get_laplacian, remove_self_loops
 from torch_scatter import scatter_add
 
-from src.data.assets import ASSETS_ROOT
+from assets import ASSETS_ROOT
 from src.data.mesh.numpy import Mesh, generate_sampling_information
 from src.data.mesh.torch import nn as meshnn
 from src.engine.logging import get_logger

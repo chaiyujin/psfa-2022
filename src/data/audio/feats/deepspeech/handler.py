@@ -29,6 +29,8 @@ import tensorflow as tf
 from python_speech_features import mfcc
 from tqdm.auto import tqdm
 
+tf.compat.v1.disable_eager_execution()
+
 
 def interpolate_features(features, input_rate, output_rate, output_len=None):
     num_features = features.shape[1]
@@ -124,9 +126,12 @@ def convert_to_deepspeech(audio, config):
         graph = tf.compat.v1.get_default_graph()
         tf.import_graph_def(graph_def, name="deepspeech")
 
-    input_tensor = graph.get_tensor_by_name("deepspeech/input_node:0")
-    seq_length = graph.get_tensor_by_name("deepspeech/input_lengths:0")
-    layer_6 = graph.get_tensor_by_name("deepspeech/logits:0")
+    # input_tensor = graph.get_tensor_by_name("deepspeech/input_node:0")
+    # seq_length = graph.get_tensor_by_name("deepspeech/input_lengths:0")
+    # layer_6 = graph.get_tensor_by_name("deepspeech/logits:0")
+    input_tensor = "deepspeech/input_node:0"
+    seq_length = "deepspeech/input_lengths:0"
+    layer_6 = "deepspeech/logits:0"
 
     n_input = 26
     n_context = 9

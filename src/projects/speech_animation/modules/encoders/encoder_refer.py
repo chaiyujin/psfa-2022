@@ -4,7 +4,8 @@ from typing import Tuple
 import torch
 import torch.nn as nn
 
-from src.data import ASSETS_ROOT, assets
+import assets
+from assets import ASSETS_ROOT
 from src.modules.layers import MLP
 
 

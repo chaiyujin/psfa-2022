@@ -9,7 +9,7 @@ from torch import Tensor
 from torch.nn.modules.activation import LeakyReLU
 from torch.nn.parameter import Parameter
 
-from src.data import get_selection_obj
+from assets import get_selection_obj
 from src.modules.mesh_conv import build_mesh_conv_blocks
 
 

@@ -3,8 +3,8 @@ from typing import Any, Dict, Optional
 import torch
 from omegaconf import DictConfig, open_dict
 
+from assets import FACE_LOWER_VIDX, FACE_NEYE_VIDX, LIPS_VIDX
 from src import metrics
-from src.data.assets import FACE_LOWER_VIDX, FACE_NEYE_VIDX, LIPS_VIDX
 from src.data.image import may_CHW2HWC
 from src.engine import ops
 from src.engine.builder import load_or_build

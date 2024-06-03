@@ -22,7 +22,7 @@ def verts_dist(fake, real, vidx=None, axis=None, reduction="mean"):
     #     import cv2
     #     from src.data.mesh.io import load_mesh
     #     from src.data.mesh.viewer import render
-    #     from src.data import get_vocaset_template_triangles
+    #     from assets import get_vocaset_template_triangles
     #     tris = get_vocaset_template_triangles()
 
     #     n_vidx = [x for x in range(5023) if x not in vidx]

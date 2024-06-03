@@ -4,8 +4,8 @@ import torch
 import torch.nn.functional as F
 from omegaconf import DictConfig, open_dict
 
+from assets import FACE_LOWER_VIDX, FACE_NEYE_VIDX, FACE_NOEYEBALLS_VIDX, LIPS_VIDX
 from src import constants, metrics
-from src.data.assets import FACE_LOWER_VIDX, FACE_NEYE_VIDX, FACE_NOEYEBALLS_VIDX, LIPS_VIDX
 from src.datasets.base.anim import AnimBaseDataset
 from src.engine.builder import load_or_build
 from src.engine.logging import get_logger
@@ -569,37 +569,42 @@ class PL_AnimNetDecmp(PL_AnimBase):
             generator.generate_for_media(media_list=media_list, **shared_kwargs)
 
         # * Dataset: trainset or validset
-        trainset = get_trainset(self, datamodule)
-        validset = get_validset(self, datamodule)
-        if isinstance(trainset, dict) and trainset.get("talk_video") is not None:
-            trainset = trainset["talk_video"]
-        elif isinstance(trainset, dict) and trainset.get("voca") is not None:
-            trainset = trainset["voca"]
+        if datamodule is not None:
+            trainset = get_trainset(self, datamodule)
+            validset = get_validset(self, datamodule)
+            if isinstance(trainset, dict) and trainset.get("talk_video") is not None:
+                trainset = trainset["talk_video"]
+            elif isinstance(trainset, dict) and trainset.get("voca") is not None:
+                trainset = trainset["voca"]
 
-        def _generate_dataset():
-            assert validset is None or isinstance(validset, AnimBaseDataset)
-            assert trainset is None or isinstance(trainset, AnimBaseDataset)
+            def _generate_dataset():
+                assert validset is None or isinstance(validset, AnimBaseDataset)
+                assert trainset is None or isinstance(trainset, AnimBaseDataset)
 
-            if self.hparams.visualizer.generate_valid and validset is not None:
-                seq_list = self.hparams.visualizer.get("validset_seq_list") or validset_seq_list
-                generator.generate_for_dataset(dataset=validset, set_type="valid", seq_list=seq_list, **shared_kwargs)
+                if self.hparams.visualizer.generate_valid and validset is not None:
+                    seq_list = self.hparams.visualizer.get("validset_seq_list") or validset_seq_list
+                    generator.generate_for_dataset(
+                        dataset=validset, set_type="valid", seq_list=seq_list, **shared_kwargs
+                    )
 
-            if self.hparams.visualizer.generate_train and trainset is not None:
-                seq_list = self.hparams.visualizer.get("trainset_seq_list") or trainset_seq_list
-                generator.generate_for_dataset(dataset=trainset, set_type="train", seq_list=seq_list, **shared_kwargs)
+                if self.hparams.visualizer.generate_train and trainset is not None:
+                    seq_list = self.hparams.visualizer.get("trainset_seq_list") or trainset_seq_list
+                    generator.generate_for_dataset(
+                        dataset=trainset, set_type="train", seq_list=seq_list, **shared_kwargs
+                    )
 
-        swp_spk_list = self.hparams.visualizer.get("swap_speakers", [None])
-        for swp_spk in swp_spk_list:
-            constants.KWARGS["swap_speaker"] = swp_spk
-            constants.KWARGS["swap_speaker_range"] = "seq"
-            swp_tag = f"swp_{swp_spk[16:]}-seq" if swp_spk is not None else None
-            shared_kwargs["extra_tag"] = swp_tag
-            _generate_dataset()
-            constants.KWARGS["swap_speaker_range"] = "rnd_frm"
-            swp_tag = f"swp_{swp_spk[16:]}-rnd_frm" if swp_spk is not None else None
-            shared_kwargs["extra_tag"] = swp_tag
-            _generate_dataset()
-        constants.KWARGS.clear()
+            swp_spk_list = self.hparams.visualizer.get("swap_speakers", [None])
+            for swp_spk in swp_spk_list:
+                constants.KWARGS["swap_speaker"] = swp_spk
+                constants.KWARGS["swap_speaker_range"] = "seq"
+                swp_tag = f"swp_{swp_spk[16:]}-seq" if swp_spk is not None else None
+                shared_kwargs["extra_tag"] = swp_tag
+                _generate_dataset()
+                constants.KWARGS["swap_speaker_range"] = "rnd_frm"
+                swp_tag = f"swp_{swp_spk[16:]}-rnd_frm" if swp_spk is not None else None
+                shared_kwargs["extra_tag"] = swp_tag
+                _generate_dataset()
+            constants.KWARGS.clear()
 
         constants.GENERATING = False
         self._generating = False

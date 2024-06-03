@@ -9,7 +9,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch import Tensor
 
-from src.data import ASSETS_ROOT, get_selection_obj, get_selection_vidx
+from assets import ASSETS_ROOT, get_selection_obj, get_selection_vidx
 from src.mm_fitting.libmorph import MeshRasterizer, OrthographicCameras, PerspectiveCameras, Rigid, build_extension
 from src.mm_fitting.libmorph.config import ExtensionConfig
 from src.modules.pix2pix import Pix2Pix

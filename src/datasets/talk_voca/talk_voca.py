@@ -8,8 +8,8 @@ from omegaconf import ListConfig
 from torch.utils.data.dataloader import default_collate
 from tqdm import tqdm
 
+from assets import DATASET_ROOT
 from src import constants
-from src.data import DATASET_ROOT
 from src.data.mesh import load_mesh
 from src.datasets.base.anim import AnimBaseDataset
 from src.datasets.utils_load import load_audio_features, load_images, load_tracked_data, load_vertices
