@@ -8,7 +8,11 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
         args: ['--maxkb=512']
-        exclude: 'cmudict\.txt'
+        exclude: |
+          (?x)(
+              cmudict\.txt|
+              vocaset_templates/
+          )
       - id: debug-statements
       - id: detect-private-key
 
