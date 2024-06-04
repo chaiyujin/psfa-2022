@@ -149,8 +149,8 @@ def get_selection_vidx(part):
 
 
 def get_selection_vidx_path(part):
-    return os.path.join(DATA_ROOT, "assets", "selection", f"{part}.txt")
+    return os.path.join(DATA_ROOT, "selection", f"{part}.txt")
 
 
 def get_selection_obj(part):
-    return os.path.join(DATA_ROOT, "assets", "selection", f"{part}.obj")
+    return os.path.join(DATA_ROOT, "selection", f"{part}.obj")

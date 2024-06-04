@@ -1,7 +1,9 @@
 import os
 from dataclasses import dataclass
 
-DATA_DIR = os.path.expanduser("~/assets/3DMM-FLAME/assets")
+from assets import ASSETS_ROOT
+
+DATA_DIR = os.path.join(ASSETS_ROOT, "flame-data")
 
 
 @dataclass
@@ -35,7 +37,7 @@ class FLAMEConfig:
 class ExtensionConfig:
     # * For i-Bug 68 landmarks
     ibug68_embed_path: str = os.path.join(DATA_DIR, "landmark_embedding.npy")
-    flame_model_path: str = os.path.join(DATA_DIR, "FLAME2020", "generic_model.pkl")
+    flame_model_path: str = os.path.join(DATA_DIR, "FLAME2020", "generic_model-np.pkl")
 
     # * For FacewareHouse 75 landmarks
     fw75_embed_path: str = os.path.join(DATA_DIR, "fw75", "landmarks_fw75.txt")

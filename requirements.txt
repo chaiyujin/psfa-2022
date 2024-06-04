@@ -1,16 +1,19 @@
 # boost
 # src/data/mesh/numpy/psbody
 
-# --------- pytorch --------- #
-torch==1.7.1
-torchvision==0.8.2
-torchaudio==0.7.2
-tensorflow==1.15.3
+# --------- framework --------- #
+
+# torch==1.7.1
+# torchvision==0.8.2
+# torchaudio==0.7.2
+
+# https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html
+
+# tensorflow==1.15.3
+# tensorboard==2.8.0
+
 pytorch-lightning==1.5.8
 torchmetrics
-
-# --------- loggers --------- #
-tensorboard==2.8.0
 
 # --------- hydra --------- #
 hydra-core==1.1.1

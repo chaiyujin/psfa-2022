@@ -1,4 +1,5 @@
 # Directories
+test_out*
 imgui.ini
 .DS_Store
 .AppleDouble

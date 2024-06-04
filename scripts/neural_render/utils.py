@@ -133,6 +133,7 @@ class _VideoLoader:
             files = sorted(files, key=lambda x: int(os.path.basename(x[:-4])))
             im_list = []
             for f in files:
+                f = os.path.join(load_from, f)
                 frame = cv2.imread(f)
                 im = cv2.resize(frame, (256, 256))
                 im = im[..., [2, 1, 0]].astype(np.float32) * 2.0 / 255.0 - 1.0

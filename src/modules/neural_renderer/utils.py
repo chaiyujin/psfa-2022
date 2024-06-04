@@ -53,7 +53,10 @@ def get_inner_mouth_offsets(verts, idle_verts, A, B, lmk_vidx, lmk_wght, speaker
 
     # solve coeff
     y = jaw_move.t()
-    x = torch.solve(y, A).solution.t()  # type: ignore
+    if torch.__version__ >= "1.9":
+        x = torch.linalg.solve(A, y).t()  # type: ignore
+    else:
+        x = torch.solve(y, A).solution.t()  # type: ignore
 
     if speaker == "m001_trump":
         x = x * torch.clamp(x, min=0.5, max=0.8)

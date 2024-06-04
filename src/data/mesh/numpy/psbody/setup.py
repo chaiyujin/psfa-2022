@@ -17,6 +17,7 @@ except ImportError:
     has_setup_tools = False
 
 import os
+from sys import platform
 from distutils import log
 from distutils.command.sdist import sdist as _sdist
 from distutils.core import Command
@@ -79,20 +80,20 @@ class build_deflate_cgal(Command):
 
         # NOTE: Work around for Apple m1/m2 clip
         # https://github.com/MPI-IS/mesh/issues/61#issuecomment-1804818271
-        config_file_path = os.path.join(CGAL_dir_deflate, "CGAL-4.7", "include", "CGAL", "config.h")
-        if os.path.exists(config_file_path):
-            with open(config_file_path, "r") as file:
-                config_lines = file.readlines()
-
-            with open(config_file_path, "w") as file:
-                for i, line in enumerate(config_lines):
-                    if 243 <= i + 1 <= 266:
-                        if i + 1 == 243:
-                            file.write("#include <machine/endian.h>\n")
-                        continue
-                    file.write(line)
-        else:
-            log.warn("[CGAL] config.h not found")
+        if platform == "darwin":
+            config_file_path = os.path.join(CGAL_dir_deflate, "CGAL-4.7", "include", "CGAL", "config.h")
+            if os.path.exists(config_file_path):
+                with open(config_file_path, "r") as file:
+                    config_lines = file.readlines()
+                with open(config_file_path, "w") as file:
+                    for i, line in enumerate(config_lines):
+                        if 243 <= i + 1 <= 266:
+                            if i + 1 == 243:
+                                file.write("#include <machine/endian.h>\n")
+                            continue
+                        file.write(line)
+            else:
+                log.warn("[CGAL] config.h not found")
 
         pass
 
