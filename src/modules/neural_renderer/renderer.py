@@ -1,4 +1,3 @@
-import functools
 import os
 from typing import List, Optional, Tuple
 
@@ -10,8 +9,8 @@ import torch.nn.functional as F
 from torch import Tensor
 
 from assets import ASSETS_ROOT, get_selection_obj, get_selection_vidx
-from src.mm_fitting.libmorph import MeshRasterizer, OrthographicCameras, PerspectiveCameras, Rigid, build_extension
-from src.mm_fitting.libmorph.config import ExtensionConfig
+from src.libmorph import MeshRasterizer, OrthographicCameras, PerspectiveCameras, Rigid, build_extension
+from src.libmorph.config import ExtensionConfig
 from src.modules.pix2pix import Pix2Pix
 from src.modules.unet import UNetRenderer
 

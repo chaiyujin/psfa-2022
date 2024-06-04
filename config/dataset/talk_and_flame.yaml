@@ -1,7 +1,0 @@
-defaults:
-  - talk_video: ../talk_video.yaml
-  - flame_mesh: ../flame_mesh.yaml
-  - _self_
-
-speakers_all: ${cat:${.flame_mesh.speakers},${.talk_video.speakers}}
-style_ids: ${rev_map:${.speakers_all}}
