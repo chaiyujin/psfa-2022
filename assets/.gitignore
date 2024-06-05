@@ -10,3 +10,4 @@ bfm_to_flame
 *.mp3
 *.TextGrid
 debug*/
+deepspeech-0.1.0-models/

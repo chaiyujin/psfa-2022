@@ -83,13 +83,10 @@ function GetArgs() {
   fi
 
   # > get exp_dir
-  # local root='${path.runs_dir}/fps${model.wanna_fps}-${model.loss.mesh.part}'
   local root='${path.runs_dir}/anime'
-  local model_tag='${model.tag}-seq${dataset.src_seq_frames}-bsz${datamodule.batch_size}'
-  [ "$exp" == "decmp" ] && { model_tag+='-${datamodule.sampler}'; }
 
   # > args string
-  local shared=" experiment=animnet_${exp} path.exp_dir=${root}/$speaker/${exp_name}${extra_name}/${model_tag}"
+  local shared=" experiment=animnet_${exp} path.exp_dir=${root}/$speaker/${exp_name}${extra_name}"
   # data
   shared+=" data=all_vocaset dataset=talk_voca datamodule=talk_voca"
   shared+=" data.audio.sliding_window.deepspeech=16"

@@ -6,6 +6,7 @@ import hydra
 from omegaconf import DictConfig, ListConfig
 from omegaconf.errors import InterpolationKeyError
 
+from .data.video import VideoWriter
 from .engine.hydra.configs import store_configs
 from .engine.resolvers import register_custom_resolvers
 

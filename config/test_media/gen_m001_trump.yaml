@@ -1,0 +1,17 @@
+do: ['misc']
+
+default_extra:
+  data_fps: 30
+  avoffset: 0
+  swap: [
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-000/meshes",
+    "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/trn-001/meshes",
+  ]
+  idle: "${path.dataset_dir}/talk_video/celebtalk/data/${model.visualizer.speaker}/fitted/identity/identity.obj"
+
+misc:
+  - ["test-clips", "speech@clip0", "${path.assets_dir}/eval_data/speech@clip0.mp3"]
+  - ["test-clips", "speech@clip1", "${path.assets_dir}/eval_data/speech@clip1.mp3"]
+  - ["test-clips", "speech@clip2", "${path.assets_dir}/eval_data/speech@clip2.mp3"]
+  - ["test-clips", "speech@clip3", "${path.assets_dir}/eval_data/speech@clip3.mp3"]
+  - ["test-clips", "speech@clip4", "${path.assets_dir}/eval_data/speech@clip4.mp3"]

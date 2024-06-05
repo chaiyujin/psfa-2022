@@ -1,4 +1,4 @@
-from . import denoise, feats, vad
+from . import feats
 from .io import display_th, load_th, save_th
 
-__all__ = ["load_th", "save_th", "display_th", "feats", "denoise", "vad"]
+__all__ = ["load_th", "save_th", "display_th", "feats"]

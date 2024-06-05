@@ -19,13 +19,8 @@ torchmetrics
 hydra-core==1.1.1
 hydra-colorlog==1.1.0
 
-# --------- linters --------- #
-pre-commit
-black
-isort
-flake8
-
 # --------- others --------- #
+wgpu-py>=0.9.4
 opencv-python
 chumpy
 pytest
@@ -49,7 +44,6 @@ get-video-properties
 
 openmesh
 librosa>=0.8.0
-webrtcvad>=2.0.10
 
 # nvdiffrast
-git+https://github.com/NVlabs/nvdiffrast.git@main#nvdiffrast
+# git+https://github.com/NVlabs/nvdiffrast.git@main#nvdiffrast
