@@ -13,9 +13,9 @@ PyTorch Implementation of our paper ["Personalized Audio-Driven 3D Facial Animat
 - Download [deepspeech-0.1.0-models](https://github.com/mozilla/DeepSpeech/releases/download/v0.1.0/deepspeech-0.1.0-models.tar.gz) and unwrap it into `./assets/pretrain_models/deepspeech-0.1.-models/`.
 
 ## Generate animation with pre-trained models
-1. Download pre-trained models and data for subjects and put them at the correct directories. [Google Drive]()
+1. Download pre-trained models and data from [Google Drive](https://drive.google.com/drive/folders/1Xoof9j5-q8c42gs87IxBTMcxIyUkTfn9?usp=sharing) and put them at the correct directories. The dataset files are compressed as `.7z` files, which should be uncompressed.
 
-1. Modify and run `bash scripts/generate.sh` to generate new animation.
+1. Modify and run `bash scripts/generate.sh` to generate new animations.
 
 ## Training
 All data-processing and training codes are contained, but not cleaned yet.
