@@ -11,3 +11,5 @@ bfm_to_flame
 *.TextGrid
 debug*/
 deepspeech-0.1.0-models/
+flame-data/FLAME2020
+flame-data/FLAME_masks
