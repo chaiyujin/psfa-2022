@@ -14,8 +14,8 @@ GenAnimNet --generating --data_src=celebtalk --wanna_fps=25 \
   --load='epoch_50.pth' \
   --speaker="$speaker" \
   --test_media="gen_$speaker" \
-  --dump_audio \
   --dump_offsets \
+  --dump_audio \
   model.visualizer.video_grid_size=512 \
 ;
 
@@ -31,7 +31,7 @@ do
   python -m scripts.neural_render \
     --nr_ckpt="runs/neural_renderer/$speaker/checkpoints/epoch_60.pth" \
     --out_path="runs/anime/$speaker/$exp_name/generated/[50][test]test-clips/${audio_name}-nr.mp4" \
-    --audio_path="runs/anime/$speaker/$exp_name/generated/[50][test]test-clips/${audio_name}.wav" \
+    --audio_path="runs/anime/$speaker/$exp_name/generated/[50][test]test-clips/${audio_name}/audio.wav" \
     --offsets_npy="runs/anime/$speaker/$exp_name/generated/[50][test]test-clips/${audio_name}/dump-offsets-final.npy" \
     --iden_path="assets/datasets/talk_video/celebtalk/data/$speaker/fitted/identity/identity.obj" \
     --reenact_video="assets/datasets/talk_video/celebtalk/data/$speaker/avoffset_corrected/vld-000-fps25.mp4" \
@@ -39,3 +39,6 @@ do
     --reenact_static_frame=0 \
   ;
 done
+
+echo "\n"
+echo "Done! Videos are generated at: runs/anime/$speaker/$exp_name/generated/[50][test]test-clips/"
